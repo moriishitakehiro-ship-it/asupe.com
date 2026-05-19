@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アスペルガー診断</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #eef4ff, #fff7df);
+      color: #222;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 34px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+
+    .tag {
+      display: inline-block;
+      background: #222;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      line-height: 1.35;
+    }
+
+    .lead {
+      color: #444;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .note {
+      background: #fff4c2;
+      border-left: 6px solid #f4c430;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      margin: 22px 0;
+    }
+
+    .progress {
+      height: 10px;
+      background: #e5e9f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 24px 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4f7cff, #ffb703);
+      transition: 0.3s;
+    }
+
+    .question-number {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .question {
+      font-size: 23px;
+      font-weight: 800;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .sub {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .option {
+      background: #f6f8fc;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: left;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .option:hover {
+      border-color: #4f7cff;
+      background: #eef3ff;
+      transform: translateY(-2px);
+    }
+
+    .result {
+      display: none;
+    }
+
+    .score {
+      font-size: 46px;
+      font-weight: 900;
+      color: #4f7cff;
+      margin: 16px 0;
+    }
+
+    .result h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .result p {
+      line-height: 1.9;
+      color: #444;
+    }
+
+    .restart {
+      margin-top: 20px;
+      background: #222;
+      color: #fff;
+      padding: 13px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #666;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <span class="tag">セルフチェック</span>
+
+    <h1>アスペルガー診断</h1>
+
+    <p class="lead">
+      「空気は読める。でも、たまに面倒くさい…。」
+    </p>
+
+    <div class="note">
+      ※これは医療診断ではありません。自己理解のためのお遊びアプリです。
+    </div>
+
+    <div id="quiz">
+      <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <div id="questionNumber" class="question-number"></div>
+      <div id="questionText" class="question"></div>
+      <div id="questionSub" class="sub"></div>
+      <div id="options" class="options"></div>
+    </div>
+
+    <div id="result" class="result">
+      <h2 id="resultTitle"></h2>
+      <div id="score" class="score"></div>
+      <p id="resultComment"></p>
+
+      <button class="restart" onclick="restartQuiz()">もう一度チェックする</button>
+
+      <p class="small">
+        結果はあくまで参考です。困りごとが生活や仕事に強く影響している場合は、専門機関への相談も検討してください。
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const questions = [
+    {
+      text: "「適当にやっておいて」と言われると、心の中で小さな会議が始まる",
+      sub: "議題：適当とは何か。期限はいつか。完成形はどこか。",
+      options: [
+        { label: "あまり始まらない", point: 0 },
+        { label: "少し始まる", point: 1 },
+        { label: "議事録が取れるくらい始まる", point: 2 }
+      ]
+    },
+    {
+      text: "急に予定が変わると、頭の中の段取り表が一度フリーズする",
+      sub: "再起動には少し時間がかかるタイプかどうか。",
+      options: [
+        { label: "わりと平気", point: 0 },
+        { label: "少し戸惑う", point: 1 },
+        { label: "脳内でWindowsアップデートが始まる", point: 2 }
+      ]
+    },
+    {
+      text: "雑談で目的地が見えないと、会話の地図を探してしまう",
+      sub: "楽しいけど、今どこへ向かっているのか気になる。",
+      options: [
+        { label: "あまり気にならない", point: 0 },
+        { label: "少し気になる", point: 1 },
+        { label: "カーナビを起動したくなる", point: 2 }
+      ]
+    },
+    {
+      text: "相手の『大丈夫です』を、わりとそのまま受け取ることがある",
+      sub: "表情より言葉を優先してしまう場面があるか。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "大丈夫と言われたら大丈夫だと思う", point: 2 }
+      ]
+    },
+    {
+      text: "音・光・匂い・肌ざわりなどが、急に主役級の存在感を出してくる",
+      sub: "誰も気にしていない音が、自分だけに大音量で届く感じ。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "疲れている時はある", point: 1 },
+        { label: "ある。しかもなかなか退場しない", point: 2 }
+      ]
+    },
+    {
+      text: "好きな話題になると、気づけば説明が第3章に入っている",
+      sub: "相手は質問1つ。こちらは資料7枚分。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "気づいたら講演会になっている", point: 2 }
+      ]
+    },
+    {
+      text: "言葉の意味やルールのズレが、妙に気になる",
+      sub: "『だいたい同じ』と言われても、その“だいたい”の幅が気になる。",
+      options: [
+        { label: "あまり気にならない", point: 0 },
+        { label: "少し気になる", point: 1 },
+        { label: "そこを曖昧にすると夜眠れない", point: 2 }
+      ]
+    }
+  ];
+
+  let current = 0;
+  let totalScore = 0;
+
+  const quiz = document.getElementById("quiz");
+  const result = document.getElementById("result");
+  const progressBar = document.getElementById("progressBar");
+  const questionNumber = document.getElementById("questionNumber");
+  const questionText = document.getElementById("questionText");
+  const questionSub = document.getElementById("questionSub");
+  const options = document.getElementById("options");
+  const resultTitle = document.getElementById("resultTitle");
+  const score = document.getElementById("score");
+  const resultComment = document.getElementById("resultComment");
+
+  function renderQuestion() {
+    const q = questions[current];
+
+    questionNumber.textContent = `質問 ${current + 1} / ${questions.length}`;
+    questionText.textContent = q.text;
+    questionSub.textContent = q.sub;
+    options.innerHTML = "";
+
+    progressBar.style.width = `${(current / questions.length) * 100}%`;
+
+    q.options.forEach(option => {
+      const btn = document.createElement("button");
+      btn.className = "option";
+      btn.textContent = option.label;
+      btn.onclick = () => {
+        totalScore += option.point;
+        current++;
+
+        if (current < questions.length) {
+          renderQuestion();
+        } else {
+          showResult();
+        }
+      };
+      options.appendChild(btn);
+    });
+  }
+
+  function showResult() {
+    quiz.style.display = "none";
+    result.style.display = "block";
+    progressBar.style.width = "100%";
+
+    const maxScore = questions.length * 2;
+    const percent = Math.round((totalScore / maxScore) * 100);
+
+    score.textContent = `${percent}%`;
+
+    if (percent <= 30) {
+      resultTitle.textContent = "空気スイスイ型";
+      resultComment.textContent =
+        "場の流れに乗るのが比較的得意なタイプです。相手の反応を見ながら柔軟に動ける一方で、周囲に合わせすぎて自分の疲れに気づきにくいこともあります。たまには自分の取扱説明書も読んであげましょう。";
+    } else if (percent <= 65) {
+      resultTitle.textContent = "確認したい設計士型";
+      resultComment.textContent =
+        "あいまいなことを整理したり、ズレを減らしたりする力がありそうです。『細かい人』ではなく、事故を未然に防ぐ人です。ただし、全部を設計図にしようとすると疲れるので、少しだけ“まあいっか”の余白も持てると楽になります。";
+    } else {
+      resultTitle.textContent = "解像度高め職人型";
+      resultComment.textContent =
+        "言葉、手順、感覚の違いに気づきやすいタイプです。正確さ、集中力、深掘り力はかなりの武器。一方で、あいまいな指示や急な変更、人の本音を読む場面では疲れやすいかもしれません。困りごとが強い場合は、専門家に相談するのも前向きな選択です。";
+    }
+  }
+
+  function restartQuiz() {
+    current = 0;
+    totalScore = 0;
+    result.style.display = "none";
+    quiz.style.display = "block";
+    renderQuestion();
+  }
+
+  renderQuestion();
+</script>
+
+</body>
+</html>
