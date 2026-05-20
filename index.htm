@@ -2,8 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>アスペルガー診断</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>クセ強コミュニケーション診断</title>
   <style>
     body {
       margin: 0;
@@ -158,16 +158,17 @@
 
 <div class="container">
   <div class="card">
-    <span class="tag">セルフチェック</span>
+    <span class="tag">ゆるめ・でも少し刺さる</span>
 
-    <h1>アスペルガー診断</h1>
+    <h1>クセ強コミュニケーション診断</h1>
 
     <p class="lead">
-      「空気は読める。でも、たまに面倒くさい…。」
+      「空気は読める。でも、たまにフォントサイズが小さすぎる。」<br>
+      日常の会話・こだわり・感覚のクセを、ちょっとだけユーモラスに確認するセルフチェックです。
     </p>
 
     <div class="note">
-      ※これは医療診断ではありません。自己理解のためのお遊びアプリです。
+      ※これは医療診断ではありません。アスペルガー症候群や自閉スペクトラム症を判定するものではなく、自己理解のための参考ツールです。毎回70問の中からランダムで5問だけ出題されます。
     </div>
 
     <div id="quiz">
@@ -196,7 +197,7 @@
 </div>
 
 <script>
-  const questions = [
+  const allQuestions = [
     {
       text: "「適当にやっておいて」と言われると、心の中で小さな会議が始まる",
       sub: "議題：適当とは何か。期限はいつか。完成形はどこか。",
@@ -259,9 +260,597 @@
         { label: "少し気になる", point: 1 },
         { label: "そこを曖昧にすると夜眠れない", point: 2 }
       ]
+    },
+    {
+      text: "『なる早で』と言われると、なるほど、で、何時ですか？となる",
+      sub: "なる早という言葉の伸縮性に不安を覚えるか。",
+      options: [
+        { label: "ならない", point: 0 },
+        { label: "少しなる", point: 1 },
+        { label: "完全に時刻を聞きたい", point: 2 }
+      ]
+    },
+    {
+      text: "会議で話が脱線すると、元の議題を心の中で抱きしめている",
+      sub: "その議題、どこに置いてきました？という気持ち。",
+      options: [
+        { label: "あまり気にしない", point: 0 },
+        { label: "少し気になる", point: 1 },
+        { label: "議題を救出したくなる", point: 2 }
+      ]
+    },
+    {
+      text: "『普通はさ』と言われると、その普通の定義が気になる",
+      sub: "普通という言葉が、意外と一番むずかしい。",
+      options: [
+        { label: "あまり気にならない", point: 0 },
+        { label: "少し気になる", point: 1 },
+        { label: "普通の仕様書が欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "チャットの短い返事だけで、相手の温度感を読むのが難しい",
+      sub: "『了解です』の裏に何度あるのか問題。",
+      options: [
+        { label: "だいたい読める", point: 0 },
+        { label: "たまに迷う", point: 1 },
+        { label: "温度計が欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "一度決めた置き場所に物がないと、世界線がズレた気がする",
+      sub: "リモコンはリモコンの住所にいてほしい。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "少しある", point: 1 },
+        { label: "住所変更届を出してほしい", point: 2 }
+      ]
+    },
+    {
+      text: "相手の冗談を、一瞬だけ真面目に受け取ってしまうことがある",
+      sub: "笑う前に、事実確認ゲートを通ってしまう。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "ゲートがかなり厳しめ", point: 2 }
+      ]
+    },
+    {
+      text: "人混みにいると、情報量が多すぎて脳内が満員電車になる",
+      sub: "音、匂い、動き、全部が同時に乗車してくる。",
+      options: [
+        { label: "平気なことが多い", point: 0 },
+        { label: "疲れているときつい", point: 1 },
+        { label: "かなり消耗する", point: 2 }
+      ]
+    },
+    {
+      text: "説明するとき、前提から話さないと気持ち悪い",
+      sub: "いきなり本題に入ると、土台がない家を建てている気分。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "少しある", point: 1 },
+        { label: "第0章から始めたい", point: 2 }
+      ]
+    },
+    {
+      text: "『なんとなく』という理由に、内心ちょっと弱い",
+      sub: "なんとなくの中身を、そっと開封したくなる。",
+      options: [
+        { label: "受け入れられる", point: 0 },
+        { label: "少し気になる", point: 1 },
+        { label: "中身を見せてほしい", point: 2 }
+      ]
+    },
+    {
+      text: "話しかけられるタイミングが悪いと、作業の電源が落ちる",
+      sub: "集中モード中の割り込み処理が重い。",
+      options: [
+        { label: "すぐ戻れる", point: 0 },
+        { label: "少し戻りにくい", point: 1 },
+        { label: "再起動に時間が必要", point: 2 }
+      ]
+    },
+    {
+      text: "初対面の雑談で、どの深さまで潜っていいか迷う",
+      sub: "浅瀬で遊ぶべきか、いきなり深海に行くべきか。",
+      options: [
+        { label: "あまり迷わない", point: 0 },
+        { label: "少し迷う", point: 1 },
+        { label: "潜水許可が欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "予定が空白の日より、予定が見えている日の方が安心する",
+      sub: "自由すぎると、逆にどうしていいか分からない時がある。",
+      options: [
+        { label: "あまりそうではない", point: 0 },
+        { label: "少しそう", point: 1 },
+        { label: "予定表は心の手すり", point: 2 }
+      ]
+    },
+    {
+      text: "言い方が少し違うだけで、意味も違うのでは？と思うことがある",
+      sub: "助詞ひとつで景色が変わるタイプ。",
+      options: [
+        { label: "あまり思わない", point: 0 },
+        { label: "たまに思う", point: 1 },
+        { label: "言葉の違いに敏感", point: 2 }
+      ]
+    },
+    {
+      text: "相手の『ちょっと』が、3分なのか30分なのか気になる",
+      sub: "ちょっと界隈、幅が広すぎる問題。",
+      options: [
+        { label: "あまり気にならない", point: 0 },
+        { label: "少し気になる", point: 1 },
+        { label: "単位を明記してほしい", point: 2 }
+      ]
+    },
+    {
+      text: "好きなことを調べ始めると、気づけば関係ない枝葉まで旅している",
+      sub: "検索履歴が小さな樹海になる。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "よく樹海に入る", point: 2 }
+      ]
+    },
+    {
+      text: "会話中、相手の意図より言葉そのものに引っかかることがある",
+      sub: "意味の網目に、足の小指をぶつける感じ。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "よく引っかかる", point: 2 }
+      ]
+    },
+    {
+      text: "電話より、文章で残るやり取りの方が安心する",
+      sub: "音声は流れる。文章は捕まえられる。",
+      options: [
+        { label: "どちらでも平気", point: 0 },
+        { label: "やや文章が楽", point: 1 },
+        { label: "文章は心の録画機能", point: 2 }
+      ]
+    },
+    {
+      text: "ルールが変わったとき、理由が分かると受け入れやすい",
+      sub: "変更そのものより、変更理由の不在がつらい。",
+      options: [
+        { label: "理由はあまり気にしない", point: 0 },
+        { label: "理由があると助かる", point: 1 },
+        { label: "理由なし変更は心がざわつく", point: 2 }
+      ]
+    },
+    {
+      text: "複数人の会話で、入るタイミングを見失うことがある",
+      sub: "会話の改札がどこにあるのか分からない。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "改札を探して終わる", point: 2 }
+      ]
+    },
+    {
+      text: "自分の中では筋が通っているのに、説明すると長くなる",
+      sub: "頭の中では一本道。外に出すと高速道路。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "少しある", point: 1 },
+        { label: "出口が増えすぎる", point: 2 }
+      ]
+    },
+    {
+      text: "『空気を読んで』と言われると、空気の文字起こしが欲しくなる",
+      sub: "読めと言われても、本文が見えない。",
+      options: [
+        { label: "あまり思わない", point: 0 },
+        { label: "少し思う", point: 1 },
+        { label: "字幕を出してほしい", point: 2 }
+      ]
+    },
+    {
+      text: "急な誘いより、事前に分かっている予定の方がありがたい",
+      sub: "心の準備にも仕込み時間が必要。",
+      options: [
+        { label: "急でも平気", point: 0 },
+        { label: "できれば事前がいい", point: 1 },
+        { label: "事前予告は愛", point: 2 }
+      ]
+    },
+    {
+      text: "自分の作業スペースが乱れると、思考まで散らかる感じがする",
+      sub: "机の乱れは脳内タブの乱れ。",
+      options: [
+        { label: "あまり関係ない", point: 0 },
+        { label: "少し影響する", point: 1 },
+        { label: "かなり影響する", point: 2 }
+      ]
+    },
+    {
+      text: "冗談、皮肉、遠回しな表現を後から理解することがある",
+      sub: "帰り道で『あれ、そういう意味？』となる。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "あとから追いつくことが多い", point: 2 }
+      ]
+    },
+    {
+      text: "一度気になった音が、そこからずっと気になり続ける",
+      sub: "時計の秒針が、突然ソロライブを始める。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "ソロライブが長い", point: 2 }
+      ]
+    },
+    {
+      text: "予定変更の連絡は、早ければ早いほどありがたい",
+      sub: "心の段取り替えにもリードタイムが必要。",
+      options: [
+        { label: "そこまで気にしない", point: 0 },
+        { label: "早い方が助かる", point: 1 },
+        { label: "早期連絡に救われる", point: 2 }
+      ]
+    },
+    {
+      text: "説明書を読まずに始める人を見ると、少しハラハラする",
+      sub: "そのボタン、押して大丈夫ですか？という気持ち。",
+      options: [
+        { label: "特に思わない", point: 0 },
+        { label: "少し思う", point: 1 },
+        { label: "説明書が泣いていると思う", point: 2 }
+      ]
+    },
+    {
+      text: "話の途中で結論が見えないと、内心そわそわする",
+      sub: "この話、最寄り駅どこですか？となる。",
+      options: [
+        { label: "あまりそわそわしない", point: 0 },
+        { label: "少しそわそわする", point: 1 },
+        { label: "結論行きの切符が欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "曖昧な褒め言葉より、具体的なフィードバックの方がうれしい",
+      sub: "『良かった』より『どこが良かった』が欲しい。",
+      options: [
+        { label: "どちらでもうれしい", point: 0 },
+        { label: "具体的だとうれしい", point: 1 },
+        { label: "具体性がごちそう", point: 2 }
+      ]
+    },
+    {
+      text: "人から急に触られると、びっくりしやすい",
+      sub: "肩ポンにも事前申請が欲しい時がある。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "少しある", point: 1 },
+        { label: "かなりびっくりする", point: 2 }
+      ]
+    },
+    {
+      text: "興味のない話題に合わせると、電池の減りが早い",
+      sub: "笑顔で聞いているが、内部バッテリーは減っている。",
+      options: [
+        { label: "あまり減らない", point: 0 },
+        { label: "少し減る", point: 1 },
+        { label: "急速に減る", point: 2 }
+      ]
+    },
+    {
+      text: "一人の時間がないと、頭の中が渋滞してくる",
+      sub: "自分だけの時間で交通整理したい。",
+      options: [
+        { label: "あまり必要ない", point: 0 },
+        { label: "ある程度必要", point: 1 },
+        { label: "かなり必要", point: 2 }
+      ]
+    },
+    {
+      text: "『その場のノリ』に乗るまで、少し助走がいる",
+      sub: "急発進より、徐行スタート派。",
+      options: [
+        { label: "すぐ乗れる", point: 0 },
+        { label: "少し助走がいる", point: 1 },
+        { label: "助走路をください", point: 2 }
+      ]
+    },
+    {
+      text: "細かい違いに気づくと、言わずにいられないことがある",
+      sub: "違いがこちらを見ている気がする。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "違いと目が合う", point: 2 }
+      ]
+    },
+    {
+      text: "自分の中のルーティンが崩れると、地味に一日へ影響する",
+      sub: "朝の順番が違うだけで、微妙に調子がズレる。",
+      options: [
+        { label: "あまり影響しない", point: 0 },
+        { label: "少し影響する", point: 1 },
+        { label: "かなり影響する", point: 2 }
+      ]
+    },
+    {
+      text: "会話の裏を読むより、言葉通りに受け取る方が自然",
+      sub: "裏面印刷されているなら先に言ってほしい。",
+      options: [
+        { label: "そうでもない", point: 0 },
+        { label: "少しそう", point: 1 },
+        { label: "かなりそう", point: 2 }
+      ]
+    },
+    {
+      text: "相手の感情に気づいても、どう返すのが正解か迷う",
+      sub: "気づいてはいる。でも返球コースが難しい。",
+      options: [
+        { label: "あまり迷わない", point: 0 },
+        { label: "たまに迷う", point: 1 },
+        { label: "返球フォームを考え込む", point: 2 }
+      ]
+    },
+    {
+      text: "情報が一気に来ると、優先順位をつける前に固まる",
+      sub: "タスクが群れで襲ってくる感じ。",
+      options: [
+        { label: "あまり固まらない", point: 0 },
+        { label: "少し固まる", point: 1 },
+        { label: "一度フリーズする", point: 2 }
+      ]
+    },
+    {
+      text: "飲食店でメニューが多すぎると、選ぶのに時間がかかる",
+      sub: "選択肢の多さが、もはや小さな試験。",
+      options: [
+        { label: "すぐ決められる", point: 0 },
+        { label: "少し迷う", point: 1 },
+        { label: "メニュー会議が始まる", point: 2 }
+      ]
+    },
+    {
+      text: "『いい感じにして』という依頼に、心の中で赤ペンを持つ",
+      sub: "いい感じの定義を、まず一緒に決めたい。",
+      options: [
+        { label: "特に困らない", point: 0 },
+        { label: "少し困る", point: 1 },
+        { label: "いい感じの設計図が欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "他人の話し方の違和感や矛盾に、すぐ気づくことがある",
+      sub: "話の小さな段差に足を取られる。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "かなり気づく", point: 2 }
+      ]
+    },
+    {
+      text: "作業中に声をかけられると、どこまでやったか忘れやすい",
+      sub: "セーブ前に話しかけられた感じ。",
+      options: [
+        { label: "すぐ戻れる", point: 0 },
+        { label: "たまに忘れる", point: 1 },
+        { label: "セーブポイントが欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "『普通に考えて』と言われると、自分の普通と照合してしまう",
+      sub: "普通のローカルルール問題。",
+      options: [
+        { label: "あまりしない", point: 0 },
+        { label: "少しする", point: 1 },
+        { label: "普通辞典が欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "急に褒められると、反応の正解が一瞬分からなくなる",
+      sub: "うれしい。でも顔と口が会議中。",
+      options: [
+        { label: "自然に返せる", point: 0 },
+        { label: "少し照れる", point: 1 },
+        { label: "返答テンプレを探す", point: 2 }
+      ]
+    },
+    {
+      text: "身近な人の機嫌が悪いと、自分のせいかどうか確認したくなる",
+      sub: "空気の低気圧に敏感になる時がある。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "かなり気になる", point: 2 }
+      ]
+    },
+    {
+      text: "自分の話が長くなっていないか、後から反省会を開く",
+      sub: "あれ、さっき熱量出すぎた？となる。",
+      options: [
+        { label: "あまり開かない", point: 0 },
+        { label: "たまに開く", point: 1 },
+        { label: "反省会が定例化している", point: 2 }
+      ]
+    },
+    {
+      text: "周囲がざわざわしていると、目の前の作業に集中しにくい",
+      sub: "脳が全部の音に出席確認をしてしまう。",
+      options: [
+        { label: "あまり影響しない", point: 0 },
+        { label: "少し影響する", point: 1 },
+        { label: "かなり影響する", point: 2 }
+      ]
+    },
+    {
+      text: "人の話を聞いている時、細部が気になって本筋から外れることがある",
+      sub: "本筋の横にある小道が魅力的すぎる。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "小道に入りがち", point: 2 }
+      ]
+    },
+    {
+      text: "初めての場所に行く前に、道順や店内の様子を調べておきたい",
+      sub: "未知を少しだけ既知にしてから出発したい。",
+      options: [
+        { label: "あまり調べない", point: 0 },
+        { label: "少し調べる", point: 1 },
+        { label: "かなり下調べする", point: 2 }
+      ]
+    },
+    {
+      text: "予定が詰まっている日は、始まる前から少し疲れる",
+      sub: "カレンダーを見ただけで、体力ゲージが減る。",
+      options: [
+        { label: "あまり疲れない", point: 0 },
+        { label: "少し疲れる", point: 1 },
+        { label: "見るだけで疲れる", point: 2 }
+      ]
+    },
+    {
+      text: "『要するに』と言われると、どこが要なのか気になる",
+      sub: "要約の要を、ちゃんと確認したい。",
+      options: [
+        { label: "あまり気にならない", point: 0 },
+        { label: "少し気になる", point: 1 },
+        { label: "要の位置を知りたい", point: 2 }
+      ]
+    },
+    {
+      text: "自分のペースを乱されると、表には出さなくても内側で揺れる",
+      sub: "外は平常運転、中は小さな地震。",
+      options: [
+        { label: "あまり揺れない", point: 0 },
+        { label: "少し揺れる", point: 1 },
+        { label: "けっこう揺れる", point: 2 }
+      ]
+    },
+    {
+      text: "会話の中で沈黙があると、何か言うべきか迷う",
+      sub: "沈黙は休憩なのか、出番なのか。",
+      options: [
+        { label: "あまり迷わない", point: 0 },
+        { label: "少し迷う", point: 1 },
+        { label: "沈黙の説明が欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "正解がない場面より、基準がある場面の方が力を出しやすい",
+      sub: "自由演技より、採点表がある方が燃える。",
+      options: [
+        { label: "そうでもない", point: 0 },
+        { label: "少しそう", point: 1 },
+        { label: "基準があると安心する", point: 2 }
+      ]
+    },
+    {
+      text: "相手に悪気がないと分かっていても、言葉の刺さり方が残る",
+      sub: "意味ではなく、言葉の角が残る感じ。",
+      options: [
+        { label: "あまり残らない", point: 0 },
+        { label: "少し残る", point: 1 },
+        { label: "けっこう残る", point: 2 }
+      ]
+    },
+    {
+      text: "やることが複数ある時、順番を決めてから動きたい",
+      sub: "とりあえず動くより、まず脳内整列。",
+      options: [
+        { label: "すぐ動ける", point: 0 },
+        { label: "少し整理したい", point: 1 },
+        { label: "順番表が欲しい", point: 2 }
+      ]
+    },
+    {
+      text: "突然の予定キャンセルに、うれしい気持ちと困る気持ちが同居する",
+      sub: "時間は空いた。でも段取りも崩れた。",
+      options: [
+        { label: "あまり困らない", point: 0 },
+        { label: "少し困る", point: 1 },
+        { label: "心の予定表がざわつく", point: 2 }
+      ]
+    },
+    {
+      text: "周囲が気にしない小さな変化に、わりと気づく",
+      sub: "髪型、配置、言い方、空気の湿度まで。",
+      options: [
+        { label: "あまり気づかない", point: 0 },
+        { label: "たまに気づく", point: 1 },
+        { label: "気づきすぎる時がある", point: 2 }
+      ]
+    },
+    {
+      text: "誰かの説明が飛び飛びだと、頭の中で補助線を引きたくなる",
+      sub: "点と点の間に、線をください。",
+      options: [
+        { label: "あまり思わない", point: 0 },
+        { label: "少し思う", point: 1 },
+        { label: "補助線職人になる", point: 2 }
+      ]
+    },
+    {
+      text: "グループLINEの流れが速いと、読むだけで少し疲れる",
+      sub: "会話が流しそうめん以上の速度で来る。",
+      options: [
+        { label: "平気", point: 0 },
+        { label: "少し疲れる", point: 1 },
+        { label: "追うだけで消耗する", point: 2 }
+      ]
+    },
+    {
+      text: "自分なりのこだわりを崩されると、説明しにくい不快感がある",
+      sub: "大事件ではない。でも確かに引っかかる。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "少しある", point: 1 },
+        { label: "かなりある", point: 2 }
+      ]
+    },
+    {
+      text: "相手が曖昧に濁した時、察するより確認したくなる",
+      sub: "察するモードより、確認モードが起動する。",
+      options: [
+        { label: "あまり確認しない", point: 0 },
+        { label: "たまに確認したい", point: 1 },
+        { label: "かなり確認したい", point: 2 }
+      ]
+    },
+    {
+      text: "自分の中では親切のつもりで、説明が細かくなりすぎる",
+      sub: "迷わないように地図を渡したら、地図帳になっていた。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "かなりある", point: 2 }
+      ]
+    },
+    {
+      text: "『あとで相談』と言われると、相談内容が気になって待機状態になる",
+      sub: "あとで、の間ずっと小さく起動している。",
+      options: [
+        { label: "あまり気にならない", point: 0 },
+        { label: "少し気になる", point: 1 },
+        { label: "ずっと気になる", point: 2 }
+      ]
+    },
+    {
+      text: "一度ハマった作品やテーマを、深く掘り続けることがある",
+      sub: "好きの井戸を、かなり深く掘れるタイプ。",
+      options: [
+        { label: "あまりない", point: 0 },
+        { label: "たまにある", point: 1 },
+        { label: "かなり掘る", point: 2 }
+      ]
     }
   ];
 
+  const QUESTION_COUNT = 5;
+
+  let questions = [];
   let current = 0;
   let totalScore = 0;
 
@@ -275,6 +864,26 @@
   const resultTitle = document.getElementById("resultTitle");
   const score = document.getElementById("score");
   const resultComment = document.getElementById("resultComment");
+
+  function shuffleArray(array) {
+    const copied = [...array];
+
+    for (let i = copied.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copied[i], copied[j]] = [copied[j], copied[i]];
+    }
+
+    return copied;
+  }
+
+  function startQuiz() {
+    questions = shuffleArray(allQuestions).slice(0, QUESTION_COUNT);
+    current = 0;
+    totalScore = 0;
+    result.style.display = "none";
+    quiz.style.display = "block";
+    renderQuestion();
+  }
 
   function renderQuestion() {
     const q = questions[current];
@@ -290,6 +899,7 @@
       const btn = document.createElement("button");
       btn.className = "option";
       btn.textContent = option.label;
+
       btn.onclick = () => {
         totalScore += option.point;
         current++;
@@ -300,6 +910,7 @@
           showResult();
         }
       };
+
       options.appendChild(btn);
     });
   }
@@ -330,14 +941,10 @@
   }
 
   function restartQuiz() {
-    current = 0;
-    totalScore = 0;
-    result.style.display = "none";
-    quiz.style.display = "block";
-    renderQuestion();
+    startQuiz();
   }
 
-  renderQuestion();
+  startQuiz();
 </script>
 
 </body>
